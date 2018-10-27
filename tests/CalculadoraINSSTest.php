@@ -5,6 +5,9 @@ use \App\CalculadoraINSS;
 
 class CalculadoraINSSTest extends TestCase{
 
+	/**
+	 * @before
+	 */
 	//Função para verificar a existência e conformidade dos atributos da classe CalculadoraINSS
 	public function testAtributos(){
 		$this->assertClassHasAttribute('sal', CalculadoraINSS::class);
@@ -18,6 +21,9 @@ class CalculadoraINSSTest extends TestCase{
 		$this->assertTrue(method_exists(CalculadoraINSS::class, 'calculaInssTrabalhador'), "Método não existe!");
 	}
 	
+	/**
+	 * @depends testMetodos
+	 */
 	//Função para verificar o retorno das funções da class CalculadoraINSS
 	public function testReturns(){
 		
@@ -38,6 +44,14 @@ class CalculadoraINSSTest extends TestCase{
 		//Testando valor maior que 5645.80
 		$aCalc = new CalculadoraINSS(7342.03);
 		$this->assertEquals(621.04, $aCalc->calculaInssTrabalhador(), "Retorno não esperado!!!");
+
+		//Testando valor zerado
+		$aCalc = new CalculadoraINSS(0);
+		$this->assertEquals(0, $aCalc->calculaInssTrabalhador(), "Retorno não esperado!!!");
+
+		//Testando valor nulo
+		$aCalc = new CalculadoraINSS("");
+		$this->assertEquals(0, $aCalc->calculaInssTrabalhador(), "Retorno não esperado!!!");
 	}
 }
 
